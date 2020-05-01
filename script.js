@@ -5,7 +5,6 @@ const cuisineId = 25; //Breakfast
 
 let maindata = ""
 
-
 fetch(
     `https://developers.zomato.com/api/v2.1/search?entity_id=${cityId}&cuisines=${cuisineId}`, {
       headers: {
@@ -25,9 +24,6 @@ fetch(
 
     const container = document.getElementById("resContainer");
 
-
-
-
     apiData.restaurants.forEach(item => {
 
       container.innerHTML += `
@@ -44,12 +40,8 @@ fetch(
         item.restaurant.location.address
         } </p></div>
         </article>`
-
     })
-
   });
-
-
 
 //// FILTER PRICE FUNCTION
 
@@ -61,53 +53,40 @@ const filterPrice = () => {
   let filteredExpen = [];
 
   maindata.restaurants.forEach(item => {
-    // console.log(item.restaurant.average_cost_for_two);
 
     const aveCost = item.restaurant.average_cost_for_two
 
     if (aveCost <= 50) {
       filteredCheap.push(item)
-      // document.getElementById("resContainer")
-      // console.log(`billigt ${aveCost} ${item.restaurant.name}`)
 
     } else if (aveCost <= 200) {
-      // console.log("mellan", aveCost)
       filteredMid.push(item)
 
       //add mid-price class
     } else if (aveCost > 200) {
-      // console.log("skitdyrt", aveCost)
       filteredExpen.push(item)
 
       //add high-price class
     } else {
-      //wops try again
       filteredRestaurants.push(item)
-
     }
-
   })
 
   if (priceDropdown.value === "cheap") {
     console.log("cheap", filteredCheap)
-
     printRestaurants(filteredCheap)
 
   } else if (priceDropdown.value === "mid") {
     console.log("mid", filteredMid)
-
     printRestaurants(filteredMid)
 
   } else {
     console.log("exp", filteredExpen)
-
     printRestaurants(filteredExpen)
   }
 };
 
 document.getElementById('priceDropdown').addEventListener('change', () => filterPrice())
-
-
 
 /// SORT FUNCTION
 
@@ -124,9 +103,6 @@ const sortCost = (selected) => {
 }
 
 document.getElementById('sortPrice').addEventListener("change", () => sortCost(sortPrice.value))
-
-
-
 
 /// PRINT PRICE FUNCTION
 
@@ -150,15 +126,10 @@ const printRestaurants = (array) => {
     item.restaurant.location.address
     } </p></div>
     </article>`
-
   });
 }
 
-
-
 const container = document.getElementById("resContainer");
-
-
 
 //// DELIVERY FUNCTION
 
@@ -171,9 +142,7 @@ revealFilter = (value) => {
 
   } else if (value === "Online-booking") {
     filterTableBooking(maindata);
-
   };
-
 };
 
 const filterDelivery = (maindata) => {
@@ -185,10 +154,7 @@ const filterDelivery = (maindata) => {
     }
   })
   printRestaurants(hasHomeDelivery)
-  // return hasHomeDelivery
-
 };
-
 
 const filterTableBooking = (maindata) => {
   let hasTableBooking = [];
@@ -197,8 +163,6 @@ const filterTableBooking = (maindata) => {
     if (item.restaurant.has_table_booking !== 0) {
       hasTableBooking.push(item)
     }
-
   })
   printRestaurants(hasTableBooking)
-  // return hasTableBooking
 };
